@@ -4,6 +4,10 @@ const Block = require('./block');
 describe('Blockchain', () => {
   const blockchain = new Blockchain();
 
+  beforeEach() => {
+    blockchain = new Blockchain();
+  });
+
   it('contains a `chain` Array instance', () => {
     expect(blockchain.chain instanceof Array).toBe(true);
   });
@@ -29,17 +33,31 @@ describe('Blockchain', () => {
     });
 
     describe('when the chain starts with the genesis block and has multiple blocks', () => {
+      beforeEach(() => {
+        blockchain.addBlock({ data: 'Bear' });
+        blockchain.addBlock({ data: 'Beets' });
+        blockchain.addBlock({ data: 'Battlestar Galactica' });
+
+      });
       describe('and a lasthash reference has changed', () => {
-        it('returns false', () => {});
+        it('returns false', () => {
+          blockchain.chain[2].lastHash = 'broken-lastHash';
+
+          expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+        });
       });
 
       describe('and the chain contains a block with an invalid field', () => {
-        it('returns false', () => {});
+        it('returns false', () => {
+          blockchain.chain[2].data = 'some-bad-and-evil-data';
+
+          expect(Blockchain.isValidChain(blockchain.chain)).toBe(false);
+        });
       });
 
       describe('and the chain does not contain any invalid field', () => {
         it('returns true', () => {
-
+          expect(Blockchain.isValidChain(blockchain.chain)).toBe(true);
         });
       });
     });
