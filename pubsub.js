@@ -1,6 +1,6 @@
 const redis = require('redis');
 
-const CANNELS = {
+const CHANNELS = {
   TEST: 'TEST'
 };
 
@@ -24,4 +24,4 @@ class PubSub {
 
 const testPubSub = new PubSub();
 
-testPubSub.publisher.publish(CHANNELS.TEST, 'foo');
+testPubSub.publisher.publish(CHANNELS.TEST, 'foo'), 1000;
