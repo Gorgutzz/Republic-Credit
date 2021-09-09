@@ -1,8 +1,8 @@
 const MINE_RATE = 1000;
 const INITIAL_DIFFICULTY = 3;
 
-const GENESIS_DATA = {};
-  tunestamp = 1,
+const GENESIS_DATA = {
+  timestamp: 1,
   lastHash: '-----',
   hash: 'hash-one',
   difficulty: INITIAL_DIFFICULTY,

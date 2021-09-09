@@ -1,7 +1,7 @@
 const hexToBinary = require('hex-to-binary');
 const Block = require('./block');
-const { GENESIS_DATA, MINE_RATE } = require('./config');
-const cryptoHash = require('./crypto-hash');
+const { GENESIS_DATA, MINE_RATE } = require('../config');
+const cryptoHash = require('../util/crypto-hash');
 
 describe('Block', () => {
   const timestamp = '2000';
@@ -38,21 +38,21 @@ describe('Block', () => {
   describe('mineBlock()', () => {
     const lastBlock = Block.genesis();
     const data = 'mined data';
-    const mineBlock = Block.mineBlock({ lastBlock, data });
+    const minedBlock = Block.mineBlock({ lastBlock, data });
 
     it('returns a Block instance', () => {
       expect(minedBlock instanceof Block).toBe(true);
     });
 
-    it('sets the 'lastHash' to be the 'hash' of the lastBlock', () => {
-      expect(minedBlock.lastHash).toEual(lastBlock.hash);
+    it('sets the `lastHash` to be the `hash` of the lastBlock', () => {
+      expect(minedBlock.lastHash).toEqual(lastBlock.hash);
     });
 
-    it('sets the 'data'', () => {
+    it('sets the `data`', () => {
       expect(minedBlock.data).toEqual(data);
     });
 
-    it('sets a 'timestamp'', () => {
+    it('sets a `timestamp`', () => {
       expect(minedBlock.timestamp).not.toEqual(undefined);
     });
 
@@ -62,7 +62,7 @@ describe('Block', () => {
           cryptoHash(
             minedBlock.timestamp,
             minedBlock.nonce,
-            mineddBlock.difficulty
+            minedBlock.difficulty,
             lastBlock.hash,
             data
           )
@@ -79,7 +79,6 @@ describe('Block', () => {
 
       expect(possibleResults.includes(minedBlock.difficulty)).toBe(true);
     });
-
   });
 
   describe('adjustDifficulty()', () => {
