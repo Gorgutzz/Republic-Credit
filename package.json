@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/Gorgutzz/Republic-Credit.git"
   },
-  "jest"; {
-    "testEnvironment": "node"
+  "jest": {
+    "testEnvironment": "node",
   },
   "keywords": [],
   "author": "",
