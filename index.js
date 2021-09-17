@@ -49,9 +49,9 @@ app.post('/api/transact', (req, res) => {
 
   transactionPool.setTransaction(transaction);
 
-  console.log('transaction', transactionPool);
+  pubsub.broadcastTransaction(transaction);
 
-  res.json({ transaction });
+  res.json({ type: 'succes', transaction });
 });
 
 app.get('/api/transaction-pool-map', (req, res) => {
