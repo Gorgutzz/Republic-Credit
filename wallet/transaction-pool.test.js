@@ -13,4 +13,13 @@ describe('TransactionPool', () => {
       amount: 50
     });
   });
+
+  describe('setTransaction()', () => {
+    it('adds a transaction', () => {
+      transactionPool.setTransaction(transaction);
+
+      expect(transactionPool.transactionMap[transaction.id])
+        .toBe(transaction);
+    });
+  });
 });
