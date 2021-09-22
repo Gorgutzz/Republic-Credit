@@ -83,6 +83,24 @@ describe('TransactionPool', () => {
   describe('clearBlockchainTransactions()', () => {
     it('clear the pool of any existing blockchain transaction', () => {
       const blockchain = new Blockchain();
+      const expectedTransactionMap = {};
+
+      for (let i=0; i<6; i++) {
+        const transaction = new Wallet().createTransaction({
+          recipient: 'foo', amount: 20
+        });
+
+        transactionPool.setTransaction(transaction);
+
+        if (i%2===0) {
+          blockchain.addBlock({ data: [transaction] })
+        } else {
+          expectedTransactionMap[transaction.id] = transaction;
+        }
+      }
+
+      transactionPool.clearBlockchainTransactions({ chain: blockchain.chain });
+      expect(transactionPool.transactionMap).toEqual(expectedTransactionMap);
     });
   });
 });
