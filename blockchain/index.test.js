@@ -102,11 +102,13 @@ describe('Blockchain', () => {
     });
 
     describe('when the new chain is not longer', () => {
-      it('does not replace the chain', () => {
+      beforeEach(() => {
         newChain.chain[0] = { new: 'chain' };
 
         blockchain.replaceChain(newChain.chain);
+      })
 
+      it('does not replace the chain', () => {
         expect(blockchain.chain).toEqual(originalChain);
       });
     });
@@ -135,8 +137,20 @@ describe('Blockchain', () => {
           expect(blockchain.chain).toEqual(newChain.chain);
         });
       });
+
+      describe('and the `validateTransactions` flag is true', () => {
+        it('calls validTransactionData()', () => {
+          const validTransactionDataMock = jest.fn();
+
+          blockchain.validTransactionData = validTransactionDataMock;
+
+          newChain.addBlock({ data: 'foo' });
+          blockchain.replaceChain(newChain.chain, true);
+
+          expect(validTransactionDataMock).toHaveBeenCalled();
+        });
+      });
     });
-  });
 
   describe('validTransactionData()', () => {
     let transaction, rewardTransaction, wallet;
