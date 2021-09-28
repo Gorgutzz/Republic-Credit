@@ -15,7 +15,7 @@
     "url": "git+https://github.com/Gorgutzz/Republic-Credit.git"
   },
   "jest": {
-    "testEnvironment": "node",
+    "testEnvironment": "node"
   },
   "keywords": [],
   "author": "",
@@ -35,6 +35,8 @@
     "express": "^4.16.3",
     "hex-to-binary": "^1.0.1",
     "pubnub": "^4.21.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "redis": "^2.8.0",
     "request": "^2.88.0"
   }
