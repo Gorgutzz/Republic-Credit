@@ -6,7 +6,7 @@ const { REWARD_INPUT, MINING_REWARD } = require('../config');
 
 class Blockchain {
   constructor() {
-    this.chain = [Block.gensis()];
+    this.chain = [Block.genesis()];
   }
 
   addBlock({ data }) {
@@ -54,7 +54,7 @@ class Blockchain {
             return false;
           }
 
-          if (Object.values(transaction.outputMap)[0]) !== MINING_REWARD) {
+          if (Object.values(transaction.outputMap)[0] !== MINING_REWARD) {
             console.error('Miner reward amount is invalid');
             return false;
           }

@@ -7,15 +7,14 @@ const CHANNELS = {
 };
 
 class PubSub {
-  constructor({ blockchain, transactionPool, wallet }) {
+  constructor({ blockchain, transactionPool, redisUrl }) {
     this.blockchain = blockchain;
     this.transactionPool = transactionPool;
-    this.walet = wallet;
 
-    this.publisher = redis.createClient();
-    this.subscriber = redis.createClient();
+    this.publisher = redis.createClient(redisUrl);
+    this.subscriber = redis.createClient(redisUrl);
 
-    this.subscriberToChannels();
+    this.subscribeToChannels();
 
     this.subscriber.on(
       'message',
@@ -24,7 +23,7 @@ class PubSub {
   }
 
   handleMessage(channel, message) {
-    console.log(`Message recieved. Channel: ${channel}. Message: ${message}.`);
+    console.log(`Message received. Channel: ${channel}. Message: ${message}.`);
 
     const parsedMessage = JSON.parse(message);
 
@@ -37,20 +36,16 @@ class PubSub {
         });
         break;
       case CHANNELS.TRANSACTION:
-        if (!this.transactionPool.existingTransaction({
-          inputAddress: this.wallet.publicKey
-        })) {
-          this.transactionPool.setTransaction(parsedMessage);
-        }
+        this.transactionPool.setTransaction(parsedMessage);
         break;
-      default;
+      default:
         return;
     }
   }
 
-  subscriberToChannels() {
+  subscribeToChannels() {
     Object.values(CHANNELS).forEach(channel => {
-      this.subscriber.subscriber(channel);
+      this.subscriber.subscribe(channel);
     });
   }
 
@@ -71,7 +66,7 @@ class PubSub {
 
   broadcastTransaction(transaction) {
     this.publish({
-      channel: CHANNELS.TRANSCATION,
+      channel: CHANNELS.TRANSACTION,
       message: JSON.stringify(transaction)
     });
   }
