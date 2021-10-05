@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 
 class Block extends Component {
   state = { displayTransaction: false };
@@ -16,7 +17,34 @@ class Block extends Component {
       `${stringifiedData.substring(0, 35)}...` :
       stringifiedData;
 
-    return <div>Data: {dataDisplay}</div>;
+    if (this.state.displayTransaction) {
+      return (
+        <div>
+          {JSON.stringify(data)}
+          <br />
+          <Button
+            bsStyle="danger"
+            bsSize="small"
+            onClick={this.toggleTransaction}
+          >
+            Show Less
+          </Button>
+        </div>
+      )
+    }
+
+    return (
+      <div>
+        <div>Data: {dataDisplay}</div>
+        <Button
+          bsStyle="danger"
+          bsSize="small"
+          onClick={this.toggleTransaction}
+        >
+          Show More
+        </Button>
+      </div>
+    );
   }
 
   render() {
