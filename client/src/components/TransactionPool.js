@@ -2,17 +2,28 @@ import React, { Component } from 'react';
 import Transaction from './Transaction';
 import { Link } from 'react-router-dom';
 
+const POLL_INERVAL_MS = 10000;
+
 class TransactionPool extends Component {
   state = { transactionPoolMap: {} };
 
   fetchTransactionPoolMap = () => {
-    fetch('http://localhost:3000/api/transaction-pool-map')
+    fetch(`${document.location.origin}/api/transaction-pool-map`)
       .then(response => resonse.json())
       .then(json => this.setState({ transactionPoolMap: json }));
   }
 
   componentDidMount() {
     this.fetchTransactionPoolMap();
+
+    this.fetchPoolMapInterval = setInterval(
+      () => this.fetchTransactionPoolMap(),
+      POLL_INERVAL_MS
+    );
+  }
+
+  componentWillMount() {
+    clearInterval(this.fetchPoolMapInterval);
   }
 
   render() {
