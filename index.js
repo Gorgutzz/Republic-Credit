@@ -14,7 +14,9 @@ const REDIS_URL isDevelopment ?
   ''
   ''
 const DEFAULT_PORT = 3000;
-const ROOT_NODE_ADDRESS = `http://localhost:${DEFAULT_PORT}`;
+const ROOT_NODE_ADDRESS = isDevelopment ?
+  `http://localhost:${DEFAULT_PORT}` :
+  'https://thawing-tundra-11851.herokuapp.com';
 
 const app = express();
 const blockchain = new Blockchain();
