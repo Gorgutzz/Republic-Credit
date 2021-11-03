@@ -46,7 +46,7 @@ describe('Wallet', () => {
   describe('createTransaction()', () => {
     describe('and the amount exceeds the balance', () => {
       it('throws an error', () => {
-        expect() => wallet.createTransaction({ amount: 999999, recipient: 'foo-recipient' }))
+        expect(() => wallet.createTransaction({ amount: 999999, recipient: 'foo-recipient' }))
           .toThrow('Amount exceeds balance');
       });
     });
@@ -65,7 +65,7 @@ describe('Wallet', () => {
       });
 
       it('matches the transaction input with the wallet', () => {
-        expect(transaction.input.address.toEqual(wallet.publicKey);
+        expect(transaction.input.address).toEqual(wallet.publicKey);
       });
 
       it('outputs the amount the recipient', () => {
@@ -94,7 +94,7 @@ describe('Wallet', () => {
     });
   });
 
-  describe('calculateBalance', () => {
+  describe('calculateBalance()', () => {
     let blockchain;
 
     beforeEach(() => {
@@ -145,6 +145,7 @@ describe('Wallet', () => {
       describe('and the wallet has made a transaction', () => {
         let recentTransaction;
 
+
         beforeEach(() => {
           recentTransaction = wallet.createTransaction({
             recipient: 'foo-address',
@@ -194,7 +195,7 @@ describe('Wallet', () => {
               sameBlockTransaction.outputMap[wallet.publicKey] +
               nextBlockTransaction.outputMap[wallet.publicKey]
             );
-          })
+          });
         });
       });
     });

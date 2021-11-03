@@ -21,7 +21,7 @@ class Transaction {
   createInput({ senderWallet, outputMap }) {
     return {
       timestamp: Date.now(),
-      amount: senderWallet.blaance,
+      amount: senderWallet.balance,
       address: senderWallet.publicKey,
       signature: senderWallet.sign(outputMap)
     };
@@ -41,7 +41,7 @@ class Transaction {
     this.outputMap[senderWallet.publicKey] =
       this.outputMap[senderWallet.publicKey] - amount;
 
-    this.input = this.createInput({ senderWaller, outputMap: this.outputMap });
+    this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
   }
 
   static validTransaction(transaction) {
@@ -56,8 +56,8 @@ class Transaction {
     }
 
     if (!verifySignature({ publicKey: address, data: outputMap, signature })) {
-      console.error(`Invalid signature fofrom ${address}`);
-      return false
+      console.error(`Invalid signature from ${address}`);
+      return false;
     }
 
     return true;

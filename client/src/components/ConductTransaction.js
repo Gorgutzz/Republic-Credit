@@ -20,7 +20,7 @@ class ConductTransaction extends Component {
     this.setState({ amount: Number(event.target.value) });
   }
 
-  ConductTransaction = () => {
+  conductTransaction = () => {
     const { recipient, amount } = this.state;
 
     fetch(`${document.location.origin}/api/transact`, {
@@ -42,15 +42,16 @@ class ConductTransaction extends Component {
         <br />
         <h4>Known Addresses</h4>
         {
-          this.state.knownAddresses.map(knownAddresses => {
+          this.state.knownAddresses.map(knownAddress => {
             return (
-              <div key={knownAddresses}>
-                <div>{knownAddresses}</div>
+              <div key={knownAddress}>
+                <div>{knownAddress}</div>
                 <br />
               </div>
             );
           })
         }
+        <br />
         <FormGroup>
           <FormControl
             input='text'
@@ -70,7 +71,7 @@ class ConductTransaction extends Component {
         <div>
           <Button
             bsStyle="danger"
-            onClick={this.ConductTransaction}
+            onClick={this.conductTransaction}
           >
             Submit
           </Button>

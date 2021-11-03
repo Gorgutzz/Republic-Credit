@@ -10,7 +10,6 @@ describe('Transaction', () => {
     senderWallet = new Wallet();
     recipient = 'recipient-public-key';
     amount = 50;
-
     transaction = new Transaction({ senderWallet, recipient, amount });
   });
 
@@ -20,15 +19,15 @@ describe('Transaction', () => {
 
   describe('outputMap', () => {
     it('has an `outputMap`', () => {
-      expect (transaction).toHaveProperty('outputMap');
+      expect(transaction).toHaveProperty('outputMap');
     });
 
     it('outputs the amount to the recipient', () => {
-      expect (transaction.outputMap[recipient]).toEqual(amount);
+      expect(transaction.outputMap[recipient]).toEqual(amount);
     });
 
     it('outputs the remaining balance for the `senderWallet`', () => {
-      expect (transaction.outputMap[senderWallet.publicKey])
+      expect(transaction.outputMap[senderWallet.publicKey])
         .toEqual(senderWallet.balance - amount);
     });
   });
@@ -42,7 +41,7 @@ describe('Transaction', () => {
       expect(transaction.input).toHaveProperty('timestamp');
     });
 
-    it('sets the `amount` to the `senderWallet` ballance', () => {
+    it('sets the `amount` to the `senderWallet` balance', () => {
       expect(transaction.input.amount).toEqual(senderWallet.balance);
     });
 
@@ -56,7 +55,7 @@ describe('Transaction', () => {
           publicKey: senderWallet.publicKey,
           data: transaction.outputMap,
           signature: transaction.input.signature
-        });
+        })
       ).toBe(true);
     });
   });
@@ -113,7 +112,7 @@ describe('Transaction', () => {
     describe('and the amount is valid', () => {
       beforeEach(() => {
         originalSignature = transaction.input.signature;
-        originalSenderOutput = transaction.outputMap[senderWallet.publicKey]
+        originalSenderOutput = transaction.outputMap[senderWallet.publicKey];
         nextRecipient = 'next-recipient';
         nextAmount = 50;
 
@@ -134,7 +133,7 @@ describe('Transaction', () => {
       it('maintains a total output that matches the input amount', () => {
         expect(
           Object.values(transaction.outputMap)
-            .reduce((total, outputAmount) => total + outputAmount);
+            .reduce((total, outputAmount) => total + outputAmount)
         ).toEqual(transaction.input.amount);
       });
 
@@ -177,8 +176,8 @@ describe('Transaction', () => {
       expect(rewardTransaction.input).toEqual(REWARD_INPUT);
     });
 
-    it('creates ones transaction for the miner with the `MINING_REWARD`', () => {
+    it('creates one transaction for the miner with the `MINING_REWARD`', () => {
       expect(rewardTransaction.outputMap[minerWallet.publicKey]).toEqual(MINING_REWARD);
-    })
+    });
   });
 });

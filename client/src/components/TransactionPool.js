@@ -11,12 +11,12 @@ class TransactionPool extends Component {
 
   fetchTransactionPoolMap = () => {
     fetch(`${document.location.origin}/api/transaction-pool-map`)
-      .then(response => resonse.json())
+      .then(response => response.json())
       .then(json => this.setState({ transactionPoolMap: json }));
   }
 
   fetchMineTransactions = () => {
-    fetch(`${document.location.origin}/api/mine-transaction`)
+    fetch(`${document.location.origin}/api/mine-transactions`)
       .then(response => {
         if (response.status === 200) {
           alert('success');
@@ -36,7 +36,7 @@ class TransactionPool extends Component {
     );
   }
 
-  componentWillMount() {
+  componentWillUnmount() {
     clearInterval(this.fetchPoolMapInterval);
   }
 
