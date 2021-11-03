@@ -4,12 +4,12 @@ const { GENESIS_DATA, MINE_RATE } = require('../config');
 const { cryptoHash } = require('../util');
 
 describe('Block', () => {
-  const timestamp = '2000';
+  const timestamp = 2000;
   const lastHash = 'foo-hash';
   const hash = 'bar-hash';
   const data = ['blockchain', 'data'];
   const nonce = 1;
-  const diificulty = 1;
+  const difficulty = 1;
   const block = new Block({ timestamp, lastHash, hash, data, nonce, difficulty });
 
   it('has a timestamp, lastHash, hash, and data property', () => {
@@ -23,8 +23,6 @@ describe('Block', () => {
 
   describe('genesis()', () => {
     const genesisBlock = Block.genesis();
-
-    console.log('genesisBlock', genesisBlock);
 
     it('returns a Block instance', () => {
       expect(genesisBlock instanceof Block).toBe(true);

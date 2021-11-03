@@ -11,7 +11,7 @@ class Blockchain {
 
   addBlock({ data }) {
     const newBlock = Block.mineBlock({
-      lastBlock: this.chain[this.chain.length-1].
+      lastBlock: this.chain[this.chain.length-1],
       data
     });
 
@@ -40,7 +40,7 @@ class Blockchain {
   }
 
   validTransactionData({ chain }) {
-    for (let i=1; i<chain.legnth; i++) {
+    for (let i=1; i<chain.length; i++) {
       const block = chain[i];
       const transactionSet = new Set();
       let rewardTransactionCount = 0;
@@ -70,12 +70,12 @@ class Blockchain {
           });
 
           if (transaction.input.amount !== trueBalance) {
-            console.eror('Invalid input amount');
+            console.error('Invalid input amount');
             return false;
           }
 
           if (transactionSet.has(transaction)) {
-            console.error('An identical transaction apears more than once in the block');
+            console.error('An identical transaction appears more than once in the block');
             return false;
           } else {
             transactionSet.add(transaction);

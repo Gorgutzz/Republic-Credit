@@ -9,7 +9,7 @@ class Block {
     this.hash = hash;
     this.data = data;
     this.nonce = nonce;
-    this.diffuclty = difficulty;
+    this.difficulty = difficulty;
   }
 
   static genesis() {
@@ -39,7 +39,7 @@ class Block {
 
     if ((timestamp - originalBlock.timestamp) > MINE_RATE ) return difficulty - 1;
 
-    return diffuclty + 1;
+    return difficulty + 1;
   }
 }
 

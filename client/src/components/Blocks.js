@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BUtton } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Block from './Block';
 
@@ -9,19 +9,19 @@ class Blocks extends Component {
   componentDidMount() {
     fetch(`${document.location.origin}/api/blocks/length`)
       .then(response => response.json())
-      .then(json => this.setState({ blocksLength: json }))
+      .then(json => this.setState({ blocksLength: json }));
 
     this.fetchPaginatedBlocks(this.state.paginatedId)();
   }
 
   fetchPaginatedBlocks = paginatedId => () => {
-    fetch(`${document.locaion.origin}/api/blocks/${paginatedId}`)
+    fetch(`${document.location.origin}/api/blocks/${paginatedId}`)
       .then(response => response.json())
       .then(json => this.setState({ blocks: json }));
   }
 
   render() {
-    console.log('this.state', this.state)
+    console.log('this.state', this.state);
 
     return (
       <div>
@@ -30,10 +30,10 @@ class Blocks extends Component {
         <div>
           {
             [...Array(Math.ceil(this.state.blocksLength/5)).keys()].map(key => {
-              const pagnatedId = key+1;
+              const paginatedId = key+1;
 
               return (
-                <span> key={key} onClick={this.fetchPaginatedBlocks(paginatedId)}>
+                <span key={key} onClick={this.fetchPaginatedBlocks(paginatedId)}>
                   <Button bsSize="small" bsStyle="danger">
                     {paginatedId}
                   </Button>{' '}
